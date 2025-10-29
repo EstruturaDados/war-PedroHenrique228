@@ -15,12 +15,21 @@
 // ============================================================================
 
 // Inclusão das bibliotecas padrão necessárias para entrada/saída, alocação de memória, manipulação de strings e tempo.
-
+#include <stdio.h>
 // --- Constantes Globais ---
 // Definem valores fixos para o número de territórios, missões e tamanho máximo de strings, facilitando a manutenção.
+#define MAX_TERRITORIOS 5
+#define MAX_NOME 30
+#define MAX_COR 10
 
 // --- Estrutura de Dados ---
 // Define a estrutura para um território, contendo seu nome, a cor do exército que o domina e o número de tropas.
+struct Territorio{
+    char nome[MAX_NOME];
+    char cor[MAX_COR];
+    int tropas;
+};
+
 
 // --- Protótipos das Funções ---
 // Declarações antecipadas de todas as funções que serão usadas no programa, organizadas por categoria.
@@ -38,6 +47,29 @@ int main() {
     // - Aloca a memória para o mapa do mundo e verifica se a alocação foi bem-sucedida.
     // - Preenche os territórios com seus dados iniciais (tropas, donos, etc.).
     // - Define a cor do jogador e sorteia sua missão secreta.
+    struct Territorio territorios[MAX_TERRITORIOS];
+    int opcao;
+
+    for (int i = 0; i< MAX_TERRITORIOS; i++){
+        printf("\n-- Cadastrando Territorio %d --", (i + 1));
+        printf("\n - Nome do Território: ");
+        fgets(territorios[i].nome, MAX_NOME, stdin);
+        printf(" - Cor do exército: ");
+        fgets(territorios[i].cor, MAX_COR, stdin);
+        printf(" - Número de Tropas: ");
+        scanf("%d", &territorios[i].tropas);
+        getchar();
+    }
+
+    printf("\n==================================");
+    printf("\n   MAPA DO MUNDO - ESTADO ATUAL   ");
+    printf("\n==================================");
+    for (int i = 0; i< MAX_TERRITORIOS; i++){
+        printf("\nTerritorio %d:", (i + 1));
+        printf("\n - Nome: %s", territorios[i].nome);
+        printf(" - Dominado por: Exercito %s", territorios[i].cor);
+        printf(" - Tropas: %d \n", territorios[i].tropas);
+    }
 
     // 2. Laço Principal do Jogo (Game Loop):
     // - Roda em um loop 'do-while' que continua até o jogador sair (opção 0) ou vencer.
